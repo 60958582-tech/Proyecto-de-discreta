@@ -10,6 +10,7 @@ delta = {
     ("q2","1"):"q0", ("q2","0"):"q1", 
     ("q3","0"):"q2", ("q3","1"):"q5", 
     ("q4","1"):"q1", ("q4","0"):"q3",
+    # Estado q5 agregado para completar los 6 estados
     ("q5","1"):"q0", ("q5","0"):"q2"
 }
 
