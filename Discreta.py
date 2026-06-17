@@ -3,16 +3,21 @@ import sys, matplotlib.pyplot as plt, networkx as nx
 from matplotlib.patches import FancyArrowPatch
 
 # === Definición del DFA ===
-states = {"q0","q1","q2","q3","q4"}
-alphabet = {"a","b"}
-delta = {("q0","a"):"q1", 
-        ("q1","a"):"q4", 
-        ("q1","b"):"q4", 
-        ("q2","a"):"q0", 
-        ("q2","b"):"q1", 
-        ("q3","b"):"q2", 
-        ("q4","a"):"q1", 
-        ("q4","b"):"q3"}
+states = {"q0","q1","q2","q3","q4","q5","q6","q7","q8","q9"}
+alphabet = {"0","1"}
+delta = {
+    ("q0","1"):"q1", ("q0","0"):"q5", 
+    ("q1","1"):"q4", ("q1","0"):"q4", 
+    ("q2","1"):"q0", ("q2","0"):"q1", 
+    ("q3","0"):"q2", ("q3","1"):"q6", 
+    ("q4","1"):"q1", ("q4","0"):"q3",
+    # 5 Estados nuevos con transiciones en 0 y 1
+    ("q5","1"):"q6", ("q5","0"):"q7",
+    ("q6","1"):"q8", ("q6","0"):"q4",
+    ("q7","1"):"q9", ("q7","0"):"q0",
+    ("q8","1"):"q2", ("q8","0"):"q9",
+    ("q9","1"):"q5", ("q9","0"):"q8"
+}
 
 q0, F = "q0", {"q4"}
 
@@ -32,7 +37,7 @@ pos = nx.spring_layout(G, seed=7)
 # === Dibujo por paso ===
 def _mid(p1,p2,o=0.10):
     (x1,y1),(x2,y2)=p1,p2; mx,my=(x1+x2)/2,(y1+y2)/2; dx,dy=x2-x1,y2-y1; nx_,ny_=-dy,dx; L=(nx_**2+ny_**2)**0.5 or 1
-    return mx+o*nx_/L, my+o*ny_/L
+    return mx+onx_/L, my+ony_/L
 
 def draw_step(current, idx, sym=None):
     plt.clf(); nodes=list(G.nodes())
@@ -50,7 +55,7 @@ def draw_step(current, idx, sym=None):
 
 # === core/main ===
 if __name__=='__main__':
-    s = sys.argv[1] if len(sys.argv)>1 else input("Cadena (a/b): ").strip()
+    s = sys.argv[1] if len(sys.argv)>1 else input("Cadena (0/1): ").strip()
     try:
         steps, ok = run(s); print("ACEPTA" if ok else "RECHAZA", f"(estado final: {steps[-1]})")
         plt.ion(); draw_step(steps[0],0)
