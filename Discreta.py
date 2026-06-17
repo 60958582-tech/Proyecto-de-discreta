@@ -1,22 +1,16 @@
-# dfa_cli_compacto.py — versión reducida
 import sys, matplotlib.pyplot as plt, networkx as nx
 from matplotlib.patches import FancyArrowPatch
 
 # === Definición del DFA ===
-states = {"q0","q1","q2","q3","q4","q5","q6","q7","q8","q9"}
+states = {"q0","q1","q2","q3","q4","q5"}
 alphabet = {"0","1"}
 delta = {
     ("q0","1"):"q1", ("q0","0"):"q5", 
     ("q1","1"):"q4", ("q1","0"):"q4", 
     ("q2","1"):"q0", ("q2","0"):"q1", 
-    ("q3","0"):"q2", ("q3","1"):"q6", 
+    ("q3","0"):"q2", ("q3","1"):"q5", 
     ("q4","1"):"q1", ("q4","0"):"q3",
-    # 5 Estados nuevos con transiciones en 0 y 1
-    ("q5","1"):"q6", ("q5","0"):"q7",
-    ("q6","1"):"q8", ("q6","0"):"q4",
-    ("q7","1"):"q9", ("q7","0"):"q0",
-    ("q8","1"):"q2", ("q8","0"):"q9",
-    ("q9","1"):"q5", ("q9","0"):"q8"
+    ("q5","1"):"q0", ("q5","0"):"q2"
 }
 
 q0, F = "q0", {"q4"}
